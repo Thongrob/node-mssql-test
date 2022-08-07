@@ -3,6 +3,14 @@ const morgan = require("morgan")
 const cors = require("cors")
 require("dotenv").config()
 const gettokenRoute = require('./routes/gettokenRoute')
+// const config = require('./dbconfig')
+// const sql = require('mssql')
+const sql = require("msnodesqlv8");
+const connectionString = "server=DESKTOP-J8A7L1R\\SQLEXPRESS;Database=registration-bsms-systemDB;Trusted_Connection=Yes;Driver={SQL Server Native Client 11.0}";
+
+
+
+
 
 
 const app = express()
@@ -14,6 +22,19 @@ const app = express()
 // })
 // .then(() => console.log("Connect to database completed"))
 // .catch((err) => console.log(err))
+
+//Conect MS SQL Server database
+const query = "SELECT * FROM employee";
+
+sql.query(connectionString, query, (err, rows) => {
+
+    if(err) {
+      console.log(err) 
+    }
+
+  console.log(rows);
+})
+
 
 //middleware
 app.use(express.json())
